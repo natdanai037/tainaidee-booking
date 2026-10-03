@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - TaeNaiDee</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="login-body">
+    <div class="login-container">
+        <h1 class="logo-text" style="margin-bottom: 0;">TaeNaiDee</h1>
+        <p style="font-size: 0.9rem; color: #666; margin-bottom: 20px; margin-top: 5px;">
+            by DevEarthZa007
+        </p>
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Username" required>
+            </div>
+            
+            <div class="input-group" style="position: relative;">
+                <input type="password" id="password" placeholder="Password" required style="padding-right: px;">
+                <i class="fas fa-eye-slash" onclick="togglePassword('password', this)" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #888;"></i>
+            </div>
+            
+            <button type="submit" class="btn-login">Login</button>
+            
+            <div class="register-link">
+                <p>Don't have an account? <a href="register.html">Register</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+
+    <script>
+        function togglePassword(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text"; // เปลี่ยนเป็นโชว์ตัวอักษร
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye"); // เปลี่ยนไอคอนเป็นตาปิด
+            } else {
+                input.type = "password"; // เปลี่ยนกลับเป็นซ่อนรหัส
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash"); // เปลี่ยนไอคอนเป็นตาเปิด
+            }
+        }
+    </script>
+</body>
+</html>

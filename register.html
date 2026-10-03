@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - TaeNaiDee</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="login-body">
+    <div class="login-container"> 
+        <h1 class="logo-text">Register</h1>
+        
+        <form id="registerForm">
+            <div class="input-group">
+                <input type="text" id="fullname" placeholder="Full name" required>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Username" required>
+            </div>
+            
+            <div class="input-group" style="position: relative;">
+                <input type="password" id="password" placeholder="Password" required style="padding-right: 15px;">
+                <i class="fas fa-eye-slash" onclick="togglePassword('password', this)" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #888;"></i>
+            </div>
+
+            <div class="input-group" style="position: relative;">
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required style="padding-right: 15px;">
+                <i class="fas fa-eye-slash" onclick="togglePassword('confirmPassword', this)" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #888;"></i>
+            </div>
+            
+            <button type="submit" class="btn-login">Register</button>
+            
+            <div class="register-link">
+                <p>Already have an account? <a href="index.html">Login</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="register.js"></script>
+
+    <script>
+        function togglePassword(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text"; // เปลี่ยนเป็นโชว์ตัวอักษร
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye"); // เปลี่ยนไอคอนเป็นตาปิด
+            } else {
+                input.type = "password"; // เปลี่ยนกลับเป็นซ่อนรหัส
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash"); // เปลี่ยนไอคอนเป็นตาเปิด
+            }
+        }
+    </script>
+</body>
+</html>

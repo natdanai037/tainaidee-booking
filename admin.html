@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - TaeNaiDee</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body class="admin-body">
+
+    <header class="admin-top-bar">
+        <h2><i class="fas fa-user-shield"></i> ผู้ดูแลระบบ</h2>
+        <a href="index.html" class="btn-logout-link"><i class="fas fa-sign-out-alt"></i></a>
+    </header>
+
+    <main class="container" style="padding-top: 20px;">
+        <h2 style="color: #1a4d2e; margin-bottom: 20px; font-size: 1.5rem;">รายการรอตรวจสอบ</h2>
+
+        <div id="adminPendingList">
+            <p style="text-align:center;">กำลังโหลดข้อมูล...</p>
+        </div>
+    </main>
+
+    <div id="slipModal" class="admin-modal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
+
+        <div class="admin-modal-content"
+            style="background: #fff; padding: 25px; border-radius: 20px; width: 90%; max-width: 400px; position: relative; text-align: center;">
+
+            <span onclick="closeModal()"
+                style="position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #888;">&times;</span>
+
+            <h3 style="color: #1a4d2e; margin-bottom: 15px; font-size: 1.2rem;">ตรวจสอบสลิปโอนเงิน</h3>
+
+            <div id="modalSummaryInfo"
+                style="margin-bottom: 15px; background: #f8f9fa; padding: 10px; border-radius: 8px; font-size: 0.95rem;">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <img id="slipImagePreview" src="" alt="Slip Preview"
+                    style="max-width: 100%; max-height: 50vh; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <button class="admin-card-btn btn-approve" id="modalApproveBtn">
+                    <i class="fas fa-check"></i> อนุมัติ
+                </button>
+                <button class="admin-card-btn btn-reject" id="modalRejectBtn">
+                    <i class="fas fa-times"></i> ปฏิเสธ
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="admin.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - TaeNaiDee</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="payment-body">
+
+    <header class="main-header">
+        <h2>Payment</h2>
+    </header>
+
+    <main class="container">
+    
+    <div class="booking-summary-ticket">
+        <div class="field-info-header">
+            <i class="fas fa-futbol"></i>
+            <span id="payFieldName">ชื่อสนาม</span>
+        </div>
+        
+        <div class="ticket-details">
+            <div class="detail-item">
+                <i class="fas fa-calendar-alt"></i>
+                <div>
+                    <label>วันที่จอง</label>
+                    <span id="payDate">DD/MM/YYYY</span>
+                </div>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-clock"></i>
+                <div>
+                    <label>เวลา</label>
+                    <span id="payTime">00:00 - 00:00</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ticket-footer-price">
+            <label>ยอดชำระสุทธิ</label>
+            <div>
+                <span id="payPrice">1,200</span>
+                <span class="currency">THB</span>
+            </div>
+        </div>
+
+        <div style="border-top: 1px dashed #ccc; margin-top: 15px; padding-top: 15px; text-align: center;">
+            <p style="margin: 0; font-weight: bold; color: #1a4d2e; font-size: 1rem;">
+                <img src="https://www.kasikornbank.com/SiteCollectionDocuments/about/img/logo/logo.png" alt="KBank" style="height: 16px; vertical-align: middle; margin-right: 5px;">
+                ธนาคารกสิกรไทย
+            </p>
+            <p style="margin: 5px 0; font-size: 1.3rem; font-weight: bold; letter-spacing: 1px; color: #333;">067-3-32926-8</p>
+            <p style="margin: 0; color: #555; font-size: 0.9rem;">ชื่อบัญชี: ณัฐดนัย ลิ้มธรรมรงค์</p>
+        </div>
+        </div>
+
+    <div class="upload-section">
+        <div class="upload-title">แนบสลิปโอนเงิน</div>
+        <div class="upload-box" id="triggerUploadBtn">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <p>คลิกเพื่อเลือกไฟล์</p>
+            <small>รองรับ JPG, PNG</small>
+            <img id="slipPreview" src="" alt="Preview">
+        </div>
+        <div id="fileNameDisplay">ยังไม่ได้เลือกไฟล์</div>
+        <input type="file" id="slipInput" accept="image/*" style="display:none;">
+    </div>
+
+    <button id="confirmBtn">
+        <i class="fas fa-check-circle"></i> ยืนยันการชำระเงิน
+    </button>
+
+</main>
+
+    <nav class="bottom-nav">
+        <a href="booking.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Main</span>
+        </a>
+        <a href="schedule.html" class="nav-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Schedule</span>
+        </a>
+        <a href="history.html" class="nav-item"> 
+            <i class="fas fa-history"></i>
+            <span>History</span>
+        </a>
+        <a href="index.html" class="nav-item logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </a>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="payment.js"></script>
+</body>
+</html>

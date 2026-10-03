@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule - TaeNaiDee</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="schedule-body">
+
+    <header class="main-header">
+        <h2>ตารางสนาม (Schedule)</h2>
+    </header>
+
+    <main class="container">
+        <div class="date-picker-container">
+            <label for="scheduleDate" class="form-label">เลือกวันที่:</label>
+            <input type="date" id="scheduleDate" class="form-input">
+        </div>
+
+        <div id="scheduleContainer" class="schedule-container">
+            </div>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="booking.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Main</span>
+        </a>
+        <a href="schedule.html" class="nav-item active"> 
+            <i class="fas fa-calendar-alt"></i>
+            <span>Schedule</span>
+        </a>
+        <a href="history.html" class="nav-item">
+            <i class="fas fa-history"></i>
+            <span>History</span>
+        </a>
+        <a href="index.html" class="nav-item logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </a>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="schedule.js"></script>
+</body>
+</html>
