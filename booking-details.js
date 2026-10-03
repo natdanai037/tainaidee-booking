@@ -1,28 +1,54 @@
-// --- ไฟล์ booking-details.js (ฉบับแก้ไขจุดบอด) ---
+// --- ไฟล์ booking-details.js ---
 
 const fieldSelect = document.getElementById('fieldSelect');
 const dateInput = document.getElementById('dateInput');
 const timeSelect = document.getElementById('timeSelect');
 const detailsForm = document.getElementById('detailsForm');
+const displayPrice = document.getElementById('displayPrice');
+
+// ตารางราคาประจำแต่ละสนาม (ตรงกับหน้า booking.html)
+const fieldPrices = {
+    "1": 800,   // Pitch 1 Standard
+    "2": 1200,  // Pitch 2 VIP Indoor
+    "3": 1500,  // Pitch 3 Full Stadium
+    "4": 800    // Pitch 4 Standard
+};
 
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
     const fieldId = urlParams.get('fieldId');
     
+    // ตั้งค่าใส่วันที่ปัจจุบัน และกำหนด min ไม่ให้เลือกวันย้อนหลัง
     const now = new Date();
     const localDate = new Date(now.getTime() - (now.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
     dateInput.value = localDate;
+    dateInput.min = localDate; // ป้องกันเลือกวันอดีต
 
-    if (fieldId) {
+    if (fieldId && fieldPrices[fieldId]) {
         fieldSelect.value = fieldId;
     }
 
+    updatePriceDisplay();
     checkAvailability();
 };
 
-fieldSelect.addEventListener('change', checkAvailability);
+// เมื่อมีการเปลี่ยนสนามหรือวันที่ ให้เช็คเวลาว่างและอัปเดตราคา
+fieldSelect.addEventListener('change', () => {
+    updatePriceDisplay();
+    checkAvailability();
+});
 dateInput.addEventListener('change', checkAvailability);
 
+// ฟังก์ชันอัปเดตราคาสนามที่เลือกบนหน้าจอ
+function updatePriceDisplay() {
+    const selectedField = fieldSelect.value;
+    const price = fieldPrices[selectedField] || 800;
+    if (displayPrice) {
+        displayPrice.innerText = `฿${price.toLocaleString()}`;
+    }
+}
+
+// ฟังก์ชันตรวจสอบรอบเวลาที่ถูกจองแล้วจาก Supabase
 async function checkAvailability() {
     const selectedDate = dateInput.value;
     const selectedField = fieldSelect.value;
@@ -32,7 +58,7 @@ async function checkAvailability() {
     timeSelect.disabled = true;
 
     try {
-        // 1. ดึงข้อมูล (ลองเช็คสถานะทั้งไทยและอังกฤษเผื่อไว้)
+        // 1. ดึงข้อมูลการจองที่มีในระบบ
         const { data: bookings, error } = await supabaseDB
             .from('bookings')
             .select('booking_time, status')
@@ -42,22 +68,19 @@ async function checkAvailability() {
 
         if (error) throw error;
 
-        // 2. ล้างช่องว่างออกให้หมดเพื่อการเปรียบเทียบที่แม่นยำ
+        // 2. จัดรูปแบบข้อความเวลาให้เปรียบเทียบง่าย
         const bookedTimes = bookings.map(b => b.booking_time.replace(/\s+/g, ''));
-        
-        console.log("จองไปแล้ววันนี้:", bookedTimes); // ดูใน Console (F12) ว่ามีข้อมูลขึ้นไหม
 
-        // 3. วนลูปจัดการ Option
+        // 3. ปรับเปลี่ยน Option ในตัวเลือกเวลา
         Array.from(timeSelect.options).forEach(option => {
             if (option.value === "") return;
 
-            // ล้างช่องว่างของค่าใน Option
             const optionValueClean = option.value.replace(/\s+/g, '');
 
             if (bookedTimes.includes(optionValueClean)) {
                 option.disabled = true;
-                option.text = option.value + " (เต็มแล้ว)";
-                option.style.color = "red";
+                option.text = option.value + " ❌ (เต็มแล้ว)";
+                option.style.color = "#d32f2f";
             } else {
                 option.disabled = false;
                 option.text = option.value;
@@ -65,31 +88,30 @@ async function checkAvailability() {
             }
         });
 
-        // ถ้าตัวที่เลือกอยู่ดันถูก Disable ให้ดีดกลับไปค่าว่าง
+        // หากตัวเลือกที่เลือกอยู่ติดสถานะจองแล้ว ให้รีเซ็ตเป็นค่าว่าง
         if (timeSelect.selectedOptions[0] && timeSelect.selectedOptions[0].disabled) {
             timeSelect.value = "";
         }
 
     } catch (err) {
-        console.error("Check Error:", err);
+        console.error("Check Availability Error:", err);
     } finally {
         timeSelect.disabled = false;
     }
 }
 
-// ส่วน Submit เหมือนเดิม
+// บันทึกข้อมูลและส่งไปยังหน้า payment.html
 detailsForm.addEventListener('submit', (e) => {
     e.preventDefault();
     
-    // เช็คอีกรอบว่าเผลอกดจองตัวที่เต็มไหม (ดักคนโกงหน้าเว็บ)
     if (timeSelect.selectedOptions[0].disabled) {
-        alert("เวลานี้มีคนจองแล้วครับ กรุณาเลือกเวลาอื่น");
+        alert("❌ เวลานี้มีคนจองแล้วครับ กรุณาเลือกช่วงเวลาอื่น");
         return;
     }
 
     const fieldId = fieldSelect.value;
-    let fieldName = fieldSelect.options[fieldSelect.selectedIndex].text;
-    let price = fieldId === "2" ? 1500 : 1200;
+    const fieldName = fieldSelect.options[fieldSelect.selectedIndex].text.split('(')[0].trim();
+    const price = fieldPrices[fieldId] || 800;
 
     const bookingData = {
         fieldId: fieldId,
@@ -99,6 +121,9 @@ detailsForm.addEventListener('submit', (e) => {
         price: price
     };
     
+    // บันทึกลง LocalStorage
     localStorage.setItem('pendingBooking', JSON.stringify(bookingData));
+    
+    // ย้ายไปหน้าชำระเงิน
     window.location.href = 'payment.html';
 });

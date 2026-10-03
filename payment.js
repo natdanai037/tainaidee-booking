@@ -1,107 +1,146 @@
 // --- ไฟล์ payment.js ---
 
-// 1. เช็คการล็อกอิน
+// 1. ตรวจสอบการเข้าสู่ระบบ
 const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 if (!currentUser) {
-    alert('กรุณาเข้าสู่ระบบก่อนทำการจองครับ');
+    alert('⚠️ กรุณาเข้าสู่ระบบก่อนทำการจองครับ');
     window.location.href = 'index.html';
 }
 
-// 2. ดึงข้อมูลการจองจากหน้า booking-details (แก้ชื่อ Key เป็น 'pendingBooking' ให้ตรงกัน)
+// 2. ดึงข้อมูลรายการจองที่ค้างอยู่จาก localStorage
 const bookingDataStr = localStorage.getItem('pendingBooking');
-
-// ถ้าหาข้อมูลไม่เจอ ให้เด้งกลับไปหน้าหลัก
 if (!bookingDataStr) {
-    alert("ไม่พบข้อมูลการจอง กรุณาทำรายการใหม่ครับ");
+    alert("⚠️ ไม่พบข้อมูลการจอง กรุณาทำรายการใหม่อีกครั้ง");
     window.location.href = 'booking.html';
 }
 
 const bookingData = JSON.parse(bookingDataStr);
 
-// 3. เอาข้อมูลมาแสดงบนหน้าจอ HTML ตอนเปิดหน้า
-window.onload = function() {
-    // แก้ไขการเรียกชื่อตัวแปรให้ตรงกับที่ส่งมาจาก booking-details.js
-    document.getElementById('payFieldName').innerText = bookingData.fieldName;
-    document.getElementById('payDate').innerText = bookingData.date;
-    document.getElementById('payTime').innerText = bookingData.time;
-    document.getElementById('payPrice').innerText = bookingData.price;
-};
-
-// --- จัดการเรื่องการอัปโหลดรูปภาพ ---
+// Elements
 const slipInput = document.getElementById('slipInput');
 const triggerUploadBtn = document.getElementById('triggerUploadBtn');
+const uploadPlaceholder = document.getElementById('uploadPlaceholder');
 const fileNameDisplay = document.getElementById('fileNameDisplay');
 const slipPreview = document.getElementById('slipPreview');
 const confirmBtn = document.getElementById('confirmBtn');
+const btnCopyAcc = document.getElementById('btnCopyAcc');
 
-// 4. พอกดปุ่ม "เลือกรูปสลิป" ให้ระบบไปกดที่ input file
+// 3. โหลดข้อมูลแสดงผลบน Ticket
+window.onload = function() {
+    document.getElementById('payFieldName').innerText = bookingData.fieldName || 'สนามฟุตบอล';
+    
+    // ฟอร์แมตวันที่ให้สวยงาม
+    if (bookingData.date) {
+        const d = new Date(bookingData.date);
+        const thaiDate = d.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: 'numeric' });
+        document.getElementById('payDate').innerText = thaiDate;
+    } else {
+        document.getElementById('payDate').innerText = '-';
+    }
+
+    document.getElementById('payTime').innerText = (bookingData.time || '-') + ' น.';
+    
+    // ฟอร์แมตราคาด้วยใส่จุลภาค
+    const priceNum = Number(bookingData.price) || 0;
+    document.getElementById('payPrice').innerText = priceNum.toLocaleString();
+};
+
+// 4. ปุ่มคัดลอกเลขบัญชี
+if (btnCopyAcc) {
+    btnCopyAcc.addEventListener('click', () => {
+        const accNumber = "0673329268"; // ตัวเลขเพียวๆ เพื่อคัดลอกง่าย
+        navigator.clipboard.writeText(accNumber).then(() => {
+            btnCopyAcc.innerHTML = '<i class="fas fa-check"></i> คัดลอกแล้ว';
+            btnCopyAcc.classList.add('copied');
+            setTimeout(() => {
+                btnCopyAcc.innerHTML = '<i class="far fa-copy"></i> คัดลอก';
+                btnCopyAcc.classList.remove('copied');
+            }, 2000);
+        }).catch(() => {
+            alert('ไม่สามารถคัดลอกได้ กรุณาพิมพ์ด้วยตนเอง: 067-3-32926-8');
+        });
+    });
+}
+
+// 5. คลิกกล่องเพื่อเลือกรูปสลิป
 triggerUploadBtn.addEventListener('click', () => {
     slipInput.click();
 });
 
-// 5. เมื่อผู้ใช้เลือกไฟล์เสร็จ ให้โชว์ชื่อและรูปตัวอย่าง (Preview)
+// 6. Preview รูปภาพเมื่อเลือกไฟล์
 slipInput.addEventListener('change', function() {
     if (this.files && this.files[0]) {
         const file = this.files[0];
-        fileNameDisplay.innerText = "ไฟล์ที่เลือก: " + file.name;
-        
-        // สร้าง Preview รูปภาพ
+
+        // ตรวจสอบขนาดไฟล์ (ไม่เกิน 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('❌ ขนาดไฟล์ใหญ่เกินไป กรุณาเลือกไฟล์สลิปที่มีขนาดไม่เกิน 5MB');
+            this.value = '';
+            return;
+        }
+
+        fileNameDisplay.innerText = "📄 ไฟล์ที่เลือก: " + file.name;
+        fileNameDisplay.classList.add('has-file');
+
         const reader = new FileReader();
         reader.onload = function(e) {
             slipPreview.src = e.target.result;
-            slipPreview.style.display = 'block'; // แสดงรูปขึ้นมา
+            slipPreview.style.display = 'block';
+            if (uploadPlaceholder) {
+                uploadPlaceholder.style.display = 'none';
+            }
         }
         reader.readAsDataURL(file);
     }
 });
 
+// 7. ยืนยันการชำระเงิน
 confirmBtn.addEventListener('click', async (e) => {
     e.preventDefault();
 
     if (!slipInput || slipInput.files.length === 0) {
-        alert('กรุณาแนบรูปภาพสลิปโอนเงินก่อนยืนยันครับ');
+        alert('⚠️ กรุณาแนบรูปภาพสลิปโอนเงินก่อนยืนยันรายการครับ');
         return;
     }
 
-    // 🚩 [เพิ่มตรงนี้] ขั้นตอนที่ 1: Double Check กับ Database ก่อนเริ่มงานหนัก
     try {
-        confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังตรวจสอบคิว...';
+        confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังตรวจสอบคิวสนาม...';
         confirmBtn.disabled = true;
 
+        // ขั้นตอนที่ 1: ตรวจสอบอีกครั้งว่าเวลานี้ถูกจองไปแล้วหรือยัง (ป้องกันการจองซ้ำซ้อน)
         const { data: alreadyBooked, error: checkError } = await supabaseDB
             .from('bookings')
             .select('id')
             .eq('field_id', bookingData.fieldId)
             .eq('booking_date', bookingData.date)
             .eq('booking_time', bookingData.time)
-            .in('status', ['Approved', 'Pending', 'อนุมัติแล้ว', 'รอการตรวจสอบ']); // เช็คสถานะให้ครบทุกแบบ
+            .in('status', ['Approved', 'Pending', 'อนุมัติแล้ว', 'รอการตรวจสอบ']);
 
         if (checkError) throw checkError;
 
         if (alreadyBooked && alreadyBooked.length > 0) {
-            // 🚫 มีคนจองตัดหน้าไปแล้ว!
-            alert('❌ ขออภัยครับ! เวลานี้เพิ่งถูกจองไปเมื่อครู่ กรุณากลับไปเลือกเวลาใหม่');
-            localStorage.removeItem('pendingBooking'); // ล้างข้อมูลเก่าทิ้ง
+            alert('❌ ขออภัยครับ! รอบเวลานี้เพิ่งถูกจองไปเมื่อครู่ กรุณาเลือกช่วงเวลาอื่น');
+            localStorage.removeItem('pendingBooking');
             window.location.href = 'booking-details.html';
             return;
         }
 
-        // --- 🚩 จบขั้นตอนการเช็ค ถ้าผ่านถึงจะทำข้างล่างต่อ ---
-
+        // ขั้นตอนที่ 2: อัปโหลดสลิปเข้า Supabase Storage (Bucket: slips)
+        confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังอัปโหลดสลิป...';
         const file = slipInput.files[0];
         const fileExt = file.name.split('.').pop();
-        const fileName = `slip-${Date.now()}.${fileExt}`;
+        const fileName = `slip_${Date.now()}_${Math.floor(Math.random() * 1000)}.${fileExt}`;
 
-        confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังอัปโหลด...';
-
-        // (โค้ดอัปโหลดรูปเดิมของคุณ...)
         const { error: uploadError } = await supabaseDB
             .storage
             .from('slips')
             .upload(fileName, file);
 
-        if (uploadError) throw new Error('อัปโหลดสลิปไม่สำเร็จ: ' + uploadError.message);
+        if (uploadError) {
+            throw new Error('อัปโหลดสลิปไม่สำเร็จ: ' + uploadError.message);
+        }
 
+        // ดึง Public URL ของสลิป
         const { data: publicUrlData } = supabaseDB
             .storage
             .from('slips')
@@ -109,13 +148,17 @@ confirmBtn.addEventListener('click', async (e) => {
         
         const slipUrl = publicUrlData.publicUrl;
 
-        // บันทึกข้อมูลลงตาราง bookings
+        // ขั้นตอนที่ 3: บันทึกข้อมูลการจองลงตาราง bookings
+        confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> กำลังบันทึกการจอง...';
+        
+        const userName = currentUser.fullname || currentUser.username || currentUser.name || 'ลูกค้า';
+
         const { error: insertError } = await supabaseDB
             .from('bookings')
             .insert([
                 {
                     user_id: currentUser.id,
-                    user_name: currentUser.fullname,
+                    user_name: userName,
                     field_id: bookingData.fieldId,
                     field_name: bookingData.fieldName,
                     booking_date: bookingData.date,
@@ -126,16 +169,19 @@ confirmBtn.addEventListener('click', async (e) => {
                 }
             ]);
 
-        if (insertError) throw new Error('บันทึกข้อมูลไม่สำเร็จ: ' + insertError.message);
+        if (insertError) {
+            throw new Error('บันทึกข้อมูลการจองไม่สำเร็จ: ' + insertError.message);
+        }
 
-        alert('✅ ยืนยันการจองเรียบร้อย! รอแอดมินตรวจสอบสักครู่นะครับ');
+        // สำเร็จ! ล้างข้อมูลชั่วคราวแล้วเปลี่ยนไปหน้า History
+        alert('🎉 ยืนยันการจองเรียบร้อยแล้ว! กรุณารอแอดมินตรวจสอบสลิปการโอนสักครู่ครับ');
         localStorage.removeItem('pendingBooking');
         window.location.href = 'history.html'; 
 
     } catch (err) {
         alert('❌ เกิดข้อผิดพลาด: ' + err.message);
-        console.error(err);
-        confirmBtn.innerText = "ยืนยันการชำระเงิน";
+        console.error("Payment Submission Error:", err);
+        confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> ยืนยันการชำระเงิน';
         confirmBtn.disabled = false;
     }
 });

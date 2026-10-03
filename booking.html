@@ -3,99 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>หน้าหลัก - แป้งนวลฟุตบอลคลับ</title>
+    <title>หน้าหลัก - TaeNaiDee football club</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="booking-body">
 
+    <!-- Header ด้านบน -->
     <header class="main-header">
-        <h2>PaengNuan Football Club</h2>
+        <div class="header-content">
+            <i class="fas fa-futbol header-logo-icon"></i>
+            <div>
+                <h2>TaeNaiDee Football Club</h2>
+                <p class="header-subtitle">ยินดีต้อนรับสู่สนามฟุตบอลมาตรฐานระดับพรีเมียม</p>
+            </div>
+        </div>
     </header>
 
     <main class="container">
-        <div class="field-banner">
-            <img src="https://mainstand.co.th/storage/news/content/5411_OldTrafford.jpg" alt="Football Field">
+        <!-- Hero Banner หน้าหลัก -->
+        <div class="hero-banner">
+            <div class="hero-overlay">
+                <span class="hero-badge"><i class="fas fa-star"></i> Open Daily 08:00 - 24:00</span>
+                <h1>จองสนามฟุตบอลออนไลน์</h1>
+                <p>สนามหญ้าเทียมคุณภาพสูง พร้อมไฟส่องสว่างและสิ่งอำนวยความสะดวกครบครัน</p>
+            </div>
         </div>
 
+        <!-- หัวข้อรายการสนาม -->
+        <div class="section-header">
+            <h3><i class="fas fa-layer-group"></i> เลือกรอบสนามที่ต้องการจอง</h3>
+            <span class="pitch-count">4 สนามพร้อมให้บริการ</span>
+        </div>
+
+        <!-- รายการสนาม (Pitch List) -->
         <section class="pitch-list">
 
-    <div class="pitch-card">
-        <div class="pitch-info">
-            <h3>Football Pitch 1</h3>
-            <span class="status available">Available</span>
-        </div>
+            <!-- Pitch 1 -->
+            <div class="pitch-card">
+                <div class="pitch-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1529900748604-07564a03e7a6?q=80&w=800&auto=format&fit=crop" alt="Pitch 1">
+                    <span class="pitch-tag">Standard</span>
+                </div>
+                <div class="pitch-content">
+                    <div class="pitch-header-info">
+                        <h3>Football Pitch 1</h3>
+                        <span class="status available"><i class="fas fa-circle"></i> Available</span>
+                    </div>
+                    <p class="pitch-desc"><i class="fas fa-users"></i> เหมาะสำหรับ 7 - 9 คน (หญ้าเทียม)</p>
+                    <div class="pitch-features">
+                        <span><i class="fas fa-bolt"></i> ไฟส่องสว่าง</span>
+                        <span><i class="fas fa-parking"></i> มีที่จอดรถ</span>
+                    </div>
+                    <div class="pitch-footer">
+                        <div class="pitch-price">
+                            <span class="price-amount">฿800</span> <small>/ 2 ชม.</small>
+                        </div>
+                        <button class="btn-booking-blue" onclick="goToBookingDetails(1)">
+                            จองสนาม <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-        <div class="pitch-action">
-            <button class="btn-booking-blue" onclick="goToBookingDetails(1)">
-                จองสนาม
-            </button>
-        </div>
-    </div>
+            <!-- Pitch 2 (VIP) -->
+            <div class="pitch-card vip-card">
+                <div class="pitch-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1575361204480-aadea25e6e68?q=80&w=800&auto=format&fit=crop" alt="Pitch 2 VIP">
+                    <span class="pitch-tag vip-tag"><i class="fas fa-crown"></i> VIP Indoor</span>
+                </div>
+                <div class="pitch-content">
+                    <div class="pitch-header-info">
+                        <h3>Football Pitch 2 (VIP)</h3>
+                        <span class="status available"><i class="fas fa-circle"></i> Available</span>
+                    </div>
+                    <p class="pitch-desc"><i class="fas fa-users"></i> เหมาะสำหรับ 7 - 9 คน (หลังคาร่ม/ติดแอร์พักผ่อน)</p>
+                    <div class="pitch-features">
+                        <span><i class="fas fa-umbrella"></i> มีหลังคา</span>
+                        <span><i class="fas fa-wifi"></i> Free Wi-Fi</span>
+                        <span><i class="fas fa-couch"></i> ห้องพัก VIP</span>
+                    </div>
+                    <div class="pitch-footer">
+                        <div class="pitch-price">
+                            <span class="price-amount">฿1,200</span> <small>/ 2 ชม.</small>
+                        </div>
+                        <button class="btn-booking-blue btn-vip" onclick="goToBookingDetails(2)">
+                            จองสนาม <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-    <div class="pitch-card">
-        <div class="pitch-info">
-            <h3>Football Pitch 2 (VIP)</h3>
-            <span class="status available">Available</span>
-        </div>
+            <!-- Pitch 3 -->
+            <div class="pitch-card">
+                <div class="pitch-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?q=80&w=800&auto=format&fit=crop" alt="Pitch 3">
+                    <span class="pitch-tag">Full Stadium</span>
+                </div>
+                <div class="pitch-content">
+                    <div class="pitch-header-info">
+                        <h3>Football Pitch 3</h3>
+                        <span class="status available"><i class="fas fa-circle"></i> Available</span>
+                    </div>
+                    <p class="pitch-desc"><i class="fas fa-users"></i> เหมาะสำหรับ 11 คน (สนามใหญ่)</p>
+                    <div class="pitch-features">
+                        <span><i class="fas fa-trophy"></i> มาตรฐานแข่งขัน</span>
+                        <span><i class="fas fa-shower"></i> ห้องอาบน้ำ</span>
+                    </div>
+                    <div class="pitch-footer">
+                        <div class="pitch-price">
+                            <span class="price-amount">฿1,500</span> <small>/ 2 ชม.</small>
+                        </div>
+                        <button class="btn-booking-blue" onclick="goToBookingDetails(3)">
+                            จองสนาม <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-        <div class="pitch-action">
-            <button class="btn-booking-blue" onclick="goToBookingDetails(2)">
-                จองสนาม
-            </button>
-        </div>
-    </div>
+            <!-- Pitch 4 -->
+            <div class="pitch-card">
+                <div class="pitch-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?q=80&w=800&auto=format&fit=crop" alt="Pitch 4">
+                    <span class="pitch-tag">Standard</span>
+                </div>
+                <div class="pitch-content">
+                    <div class="pitch-header-info">
+                        <h3>Football Pitch 4</h3>
+                        <span class="status available"><i class="fas fa-circle"></i> Available</span>
+                    </div>
+                    <p class="pitch-desc"><i class="fas fa-users"></i> เหมาะสำหรับ 7 - 9 คน (หญ้าเทียมใหม่)</p>
+                    <div class="pitch-features">
+                        <span><i class="fas fa-bolt"></i> ไฟ LED สว่างชัด</span>
+                        <span><i class="fas fa-parking"></i> ที่จอดรถสะดวก</span>
+                    </div>
+                    <div class="pitch-footer">
+                        <div class="pitch-price">
+                            <span class="price-amount">฿800</span> <small>/ 2 ชม.</small>
+                        </div>
+                        <button class="btn-booking-blue" onclick="goToBookingDetails(4)">
+                            จองสนาม <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
 
-    <div class="pitch-card">
-        <div class="pitch-info">
-            <h3>Football Pitch 3</h3>
-            <span class="status available">Available</span>
-        </div>
-
-        <div class="pitch-action">
-            <button class="btn-booking-blue" onclick="goToBookingDetails(3)">
-                จองสนาม
-            </button>
-        </div>
-    </div>
-
-    <div class="pitch-card">
-        <div class="pitch-info">
-            <h3>Football Pitch 4</h3>
-            <span class="status available">Available</span>
-        </div>
-
-        <div class="pitch-action">
-            <button class="btn-booking-blue" onclick="goToBookingDetails(4)">
-                จองสนาม
-            </button>
-        </div>
-    </div>
-
-</section>
+        </section>
     </main>
 
-    <nav class="bottom-nav">
-        <a href="booking.html" class="nav-item active"> 
-            <i class="fas fa-home"></i>
-            <span>Main</span>
-        </a>
-        
-        <a href="schedule.html" class="nav-item">
-            <i class="fas fa-calendar-alt"></i>
-            <span>Schedule</span>
-        </a>
-        
-        <a href="history.html" class="nav-item"> 
-            <i class="fas fa-history"></i>
-            <span>History</span>
-        </a>
-        
-        <a href="index.html" class="nav-item logout">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Logout</span>
-        </a>
-    </nav>
+<nav class="bottom-nav">
+    <a href="booking.html" class="nav-item active"> <!-- ใส่ active ตรงนี้ -->
+        <i class="fas fa-futbol"></i>
+        <span>จองสนาม</span>
+    </a>
+    <a href="schedule.html" class="nav-item">
+        <i class="fas fa-calendar-alt"></i>
+        <span>ตารางสนาม</span>
+    </a>
+    <a href="history.html" class="nav-item">
+        <i class="fas fa-history"></i>
+        <span>ประวัติการจอง</span>
+    </a>
+    <a href="info.html" class="nav-item">
+        <i class="fas fa-info-circle"></i>
+        <span>ติดต่อเรา</span>
+    </a>
+    <a href="index.html" class="nav-item logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>ออกระบบ</span>
+    </a>
+</nav>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>

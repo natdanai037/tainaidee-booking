@@ -3,40 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>History - TaeNaiDee</title>
+    <title>ประวัติการจอง - TaeNaiDee football club</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="history-body">
 
+    <!-- Header ด้านบน -->
     <header class="main-header history-header">
         <h1>History</h1>
-        <h2>PaengNuan Football Club</h2>
+        <p class="header-subtitle">TaeNaiDee Football Club</p>
     </header>
 
     <main class="container">
+        <!-- Status Filter Tabs -->
+        <div class="status-filter-tabs">
+            <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
+            <button class="filter-btn" data-filter="Pending">รอตรวจสอบ</button>
+            <button class="filter-btn" data-filter="Approved">อนุมัติแล้ว</button>
+            <button class="filter-btn" data-filter="Rejected">ไม่อนุมัติ</button>
+        </div>
+
+        <!-- History List Container -->
         <div id="historyList" class="history-list">
-            </div>
+            <!-- ข้อมูลจะถูกโหลดมาจาก JS -->
+        </div>
     </main>
 
-    <nav class="bottom-nav">
-        <a href="booking.html" class="nav-item">
-            <i class="fas fa-home"></i>
-            <span>Main</span>
-        </a>
-        <a href="schedule.html" class="nav-item">
-            <i class="fas fa-calendar-alt"></i>
-            <span>Schedule</span>
-        </a>
-        <a href="history.html" class="nav-item active"> 
-            <i class="fas fa-history"></i>
-            <span>History</span>
-        </a>
-        <a href="index.html" class="nav-item logout">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Logout</span>
-        </a>
-    </nav>
+    <!-- Modal สำหรับดูรูปสลิป -->
+    <div id="slipModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <span class="modal-close" id="closeSlipModal">&times;</span>
+            <h4 class="modal-title"><i class="fas fa-receipt"></i> สลิปโอนเงิน</h4>
+            <div class="modal-body">
+                <img id="modalSlipImage" src="" alt="สลิปการโอนเงิน">
+            </div>
+        </div>
+    </div>
+
+<nav class="bottom-nav">
+    <a href="booking.html" class="nav-item">
+        <i class="fas fa-futbol"></i>
+        <span>จองสนาม</span>
+    </a>
+    <a href="schedule.html" class="nav-item">
+        <i class="fas fa-calendar-alt"></i>
+        <span>ตารางสนาม</span>
+    </a>
+    <a href="history.html" class="nav-item active"> <!-- ใส่ active ตรงนี้ -->
+        <i class="fas fa-history"></i>
+        <span>ประวัติการจอง</span>
+    </a>
+    <a href="info.html" class="nav-item">
+        <i class="fas fa-info-circle"></i>
+        <span>ติดต่อเรา</span>
+    </a>
+    <a href="index.html" class="nav-item logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>ออกระบบ</span>
+    </a>
+</nav>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>

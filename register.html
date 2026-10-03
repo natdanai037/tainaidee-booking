@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - TaeNaiDee</title>
+    <title>Register - TaeNaiDee football club</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="login-body">
     <div class="login-container"> 
         <h1 class="logo-text">Register</h1>
+        <p class="developer-credit">
+            TaeNaiDee football club
+        </p>
         
         <form id="registerForm">
             <div class="input-group">
@@ -21,12 +24,12 @@
             </div>
             
             <div class="input-group" style="position: relative;">
-                <input type="password" id="password" placeholder="Password" required style="padding-right: 15px;">
+                <input type="password" id="password" placeholder="Password" required style="padding-right: 45px;">
                 <i class="fas fa-eye-slash" onclick="togglePassword('password', this)" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #888;"></i>
             </div>
 
             <div class="input-group" style="position: relative;">
-                <input type="password" id="confirmPassword" placeholder="Confirm Password" required style="padding-right: 15px;">
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required style="padding-right: 45px;">
                 <i class="fas fa-eye-slash" onclick="togglePassword('confirmPassword', this)" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #888;"></i>
             </div>
             
@@ -46,13 +49,13 @@
         function togglePassword(inputId, icon) {
             const input = document.getElementById(inputId);
             if (input.type === "password") {
-                input.type = "text"; // เปลี่ยนเป็นโชว์ตัวอักษร
+                input.type = "text";
                 icon.classList.remove("fa-eye-slash");
-                icon.classList.add("fa-eye"); // เปลี่ยนไอคอนเป็นตาปิด
+                icon.classList.add("fa-eye");
             } else {
-                input.type = "password"; // เปลี่ยนกลับเป็นซ่อนรหัส
+                input.type = "password";
                 icon.classList.remove("fa-eye");
-                icon.classList.add("fa-eye-slash"); // เปลี่ยนไอคอนเป็นตาเปิด
+                icon.classList.add("fa-eye-slash");
             }
         }
     </script>

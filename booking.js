@@ -1,11 +1,16 @@
-// เปลี่ยนชื่อฟังก์ชันและ Logic การเด้งหน้า
+// --- ไฟล์ booking.js ---
+
+// ฟังก์ชันนำทางไปยังหน้า Booking Details พร้อมส่งค่า fieldId ผ่าน URL
 function goToBookingDetails(pitchId) {
-    // เดินทางไปหน้า Booking Details โดยส่งค่า ID สนามไปด้วยผ่าน URL
+    if (!pitchId) return;
     window.location.href = `booking-details.html?fieldId=${pitchId}`;
 }
 
-// ตรวจสอบ Session (ถ้าจำเป็น)
+// ตรวจสอบสถานะผู้ใช้เมื่อโหลดหน้าเว็บ
 window.onload = function() {
+    // สามารถเปิดใช้งานการตรวจสอบ Login ได้ที่นี่
     // const user = localStorage.getItem('user');
-    // if (!user) window.location.href = 'index.html';
+    // if (!user) {
+    //     window.location.href = 'index.html';
+    // }
 };

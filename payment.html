@@ -3,79 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment - TaeNaiDee</title>
+    <title>ชำระเงิน - TaeNaiDee football club</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="payment-body">
 
-    <header class="main-header">
-        <h2>Payment</h2>
+    <!-- Header ด้านบน -->
+    <header class="main-header header-with-back">
+        <a href="booking-details.html" class="btn-back"><i class="fas fa-chevron-left"></i></a>
+        <div>
+            <h2>ชำระเงิน (Payment)</h2>
+            <p class="header-subtitle">TaeNaiDee Football Club</p>
+        </div>
     </header>
 
     <main class="container">
-    
-    <div class="booking-summary-ticket">
-        <div class="field-info-header">
-            <i class="fas fa-futbol"></i>
-            <span id="payFieldName">ชื่อสนาม</span>
+        <!-- Step Indicator -->
+        <div class="booking-step-bar">
+            <div class="step-item completed">
+                <span class="step-num"><i class="fas fa-check"></i></span>
+                <span class="step-label">เลือกรอบสนาม</span>
+            </div>
+            <div class="step-line active"></div>
+            <div class="step-item active">
+                <span class="step-num">2</span>
+                <span class="step-label">ชำระเงิน</span>
+            </div>
         </div>
-        
-        <div class="ticket-details">
-            <div class="detail-item">
-                <i class="fas fa-calendar-alt"></i>
-                <div>
-                    <label>วันที่จอง</label>
-                    <span id="payDate">DD/MM/YYYY</span>
+
+        <!-- Booking Summary Ticket -->
+        <div class="booking-summary-ticket">
+            <div class="ticket-top-header">
+                <i class="fas fa-receipt"></i>
+                <span>สรุป รายการจองสนาม</span>
+            </div>
+            
+            <div class="field-info-header">
+                <i class="fas fa-futbol"></i>
+                <span id="payFieldName">กำลังโหลด...</span>
+            </div>
+            
+            <div class="ticket-details">
+                <div class="detail-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <div>
+                        <label>วันที่เข้าเล่น</label>
+                        <span id="payDate">-</span>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <label>ช่วงเวลา</label>
+                        <span id="payTime">-</span>
+                    </div>
                 </div>
             </div>
-            <div class="detail-item">
-                <i class="fas fa-clock"></i>
-                <div>
-                    <label>เวลา</label>
-                    <span id="payTime">00:00 - 00:00</span>
+
+            <div class="ticket-divider">
+                <div class="circle-left"></div>
+                <div class="circle-right"></div>
+            </div>
+            
+            <div class="ticket-footer-price">
+                <label>ยอดชำระสุทธิ</label>
+                <div class="price-box">
+                    <span id="payPrice">0</span>
+                    <span class="currency">THB</span>
                 </div>
             </div>
         </div>
-        
-        <div class="ticket-footer-price">
-            <label>ยอดชำระสุทธิ</label>
-            <div>
-                <span id="payPrice">1,200</span>
-                <span class="currency">THB</span>
+
+        <!-- Bank Account Card -->
+        <div class="bank-card shadow-card">
+            <div class="bank-card-header">
+                <div class="bank-brand">
+                    <span class="bank-logo-badge kbank-bg">KBANK</span>
+                    <div>
+                        <p class="bank-title">ธนาคารกสิกรไทย</p>
+                        <p class="bank-acc-name">ชื่อบัญชี: ณัฐดนัย ลิ้มธรรมรงค์</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bank-number-box">
+                <span class="acc-number" id="accNumberText">067-3-32926-8</span>
+                <button type="button" class="btn-copy" id="btnCopyAcc" title="คัดลอกเลขบัญชี">
+                    <i class="far fa-copy"></i> คัดลอก
+                </button>
             </div>
         </div>
 
-        <div style="border-top: 1px dashed #ccc; margin-top: 15px; padding-top: 15px; text-align: center;">
-            <p style="margin: 0; font-weight: bold; color: #1a4d2e; font-size: 1rem;">
-                <img src="https://www.kasikornbank.com/SiteCollectionDocuments/about/img/logo/logo.png" alt="KBank" style="height: 16px; vertical-align: middle; margin-right: 5px;">
-                ธนาคารกสิกรไทย
-            </p>
-            <p style="margin: 5px 0; font-size: 1.3rem; font-weight: bold; letter-spacing: 1px; color: #333;">067-3-32926-8</p>
-            <p style="margin: 0; color: #555; font-size: 0.9rem;">ชื่อบัญชี: ณัฐดนัย ลิ้มธรรมรงค์</p>
+        <!-- Upload Slip Section -->
+        <div class="upload-section shadow-card">
+            <div class="upload-title">
+                <i class="fas fa-file-invoice-dollar"></i> แนบหลักฐานการโอนเงิน (สลิป)
+            </div>
+            
+            <div class="upload-box" id="triggerUploadBtn">
+                <div id="uploadPlaceholder">
+                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                    <p class="upload-text">คลิกที่นี่เพื่อเลือกรูปสลิป</p>
+                    <small class="upload-hint">รองรับไฟล์ JPG, PNG (ขนาดไม่เกิน 5MB)</small>
+                </div>
+                <img id="slipPreview" src="" alt="Preview Slip" style="display: none;">
+            </div>
+            
+            <div id="fileNameDisplay" class="file-name-text">ยังไม่ได้เลือกไฟล์สลิป</div>
+            <input type="file" id="slipInput" accept="image/png, image/jpeg, image/jpg" style="display:none;">
         </div>
-        </div>
 
-    <div class="upload-section">
-        <div class="upload-title">แนบสลิปโอนเงิน</div>
-        <div class="upload-box" id="triggerUploadBtn">
-            <i class="fas fa-cloud-upload-alt"></i>
-            <p>คลิกเพื่อเลือกไฟล์</p>
-            <small>รองรับ JPG, PNG</small>
-            <img id="slipPreview" src="" alt="Preview">
-        </div>
-        <div id="fileNameDisplay">ยังไม่ได้เลือกไฟล์</div>
-        <input type="file" id="slipInput" accept="image/*" style="display:none;">
-    </div>
+        <!-- Confirm Button -->
+        <button id="confirmBtn" class="btn-action btn-confirm-payment">
+            <i class="fas fa-check-circle"></i> ยืนยันการชำระเงิน
+        </button>
+    </main>
 
-    <button id="confirmBtn">
-        <i class="fas fa-check-circle"></i> ยืนยันการชำระเงิน
-    </button>
-
-</main>
-
+    <!-- Bottom Navigation -->
     <nav class="bottom-nav">
-        <a href="booking.html" class="nav-item">
+        <a href="booking.html" class="nav-item active">
             <i class="fas fa-home"></i>
             <span>Main</span>
         </a>

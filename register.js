@@ -5,19 +5,19 @@ const registerForm = document.getElementById('registerForm');
 registerForm.addEventListener('submit', async (e) => {
     e.preventDefault(); // ป้องกันไม่ให้หน้าเว็บรีโหลด
     
-    // ดึงค่าจากช่องกรอก
-    const fullname = document.getElementById('fullname').value;
-    const username = document.getElementById('username').value;
+    // ดึงค่าจากช่องกรอกข้อมูล (พร้อมตัดช่องว่างหน้า-หลัง)
+    const fullname = document.getElementById('fullname').value.trim();
+    const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
 
-    // 🔥 1. เช็ครหัสผ่านให้ตรงกัน "ก่อน" ทำอย่างอื่นเลย 🔥
+    // 🔥 1. เช็ครหัสผ่านให้ตรงกัน "ก่อน" ทำอย่างอื่น 🔥
     if (password !== confirmPassword) {
         alert("❌ รหัสผ่านและการยืนยันรหัสผ่านไม่ตรงกัน กรุณาลองอีกครั้ง!");
-        return; // สั่งหยุดการทำงานทันที โค้ดด้านล่างจะไม่ถูกเปิดใช้งาน
+        return; // สั่งหยุดการทำงานทันที
     }
 
-    // 2. ถ้าผ่านด่านข้างบนมาได้ ค่อยเปลี่ยนข้อความปุ่มเพื่อบอกผู้ใช้ว่ากำลังประมวลผล
+    // 2. เปลี่ยนข้อความปุ่มเพื่อบอกผู้ใช้ว่ากำลังประมวลผล
     const btnSubmit = document.querySelector('.btn-login');
     btnSubmit.innerText = "กำลังสมัครสมาชิก...";
     btnSubmit.disabled = true;

@@ -1,49 +1,87 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schedule - TaeNaiDee</title>
+    <title>ตารางสนาม - TaeNaiDee Football Club</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body class="schedule-body">
 
+    <!-- Header -->
     <header class="main-header">
-        <h2>ตารางสนาม (Schedule)</h2>
+        <h2><i class="fas fa-calendar-alt"></i> ตารางสนาม (Schedule)</h2>
+        <p class="header-subtitle">เช็คช่วงเวลาว่างและจองสนามได้ทันที</p>
     </header>
 
-    <main class="container">
-        <div class="date-picker-container">
-            <label for="scheduleDate" class="form-label">เลือกวันที่:</label>
-            <input type="date" id="scheduleDate" class="form-input">
+    <main class="container schedule-main-container">
+
+        <!-- Date Selector & Quick Buttons -->
+        <div class="schedule-date-card">
+            <div class="date-picker-group">
+                <label for="scheduleDate" class="form-label"><i class="fas fa-calendar-day"></i> เลือกวันที่:</label>
+                <input type="date" id="scheduleDate" class="form-input-date">
+            </div>
+
+            <!-- ปุ่มทางลัดเลือกวัน -->
+            <div class="quick-date-buttons">
+                <button type="button" class="btn-quick-date active" id="btnToday" onclick="setQuickDate(0)">วันนี้</button>
+                <button type="button" class="btn-quick-date" id="btnTomorrow" onclick="setQuickDate(1)">พรุ่งนี้</button>
+                <button type="button" class="btn-quick-date" id="btnDayAfter" onclick="setQuickDate(2)">มะรืนนี้</button>
+            </div>
         </div>
 
-        <div id="scheduleContainer" class="schedule-container">
+        <!-- Legend (คำอธิบายสัญลักษณ์สี) -->
+        <div class="status-legend-bar">
+            <div class="legend-item"><span class="legend-dot dot-available"></span> ว่าง (คลิกจอง)</div>
+            <div class="legend-item"><span class="legend-dot dot-pending"></span> รอตรวจสอบ</div>
+            <div class="legend-item"><span class="legend-dot dot-booked"></span> จองแล้ว</div>
+        </div>
+
+        <!-- Daily Overview Stats -->
+        <div id="scheduleStatsSummary" class="schedule-summary-box">
+            <!-- JS จะใส่จำนวน slot ว่าง/จองแล้ว ตรงนี้ -->
+        </div>
+
+        <!-- Schedule Cards List -->
+        <div id="scheduleContainer" class="schedule-cards-list">
+            <div class="loading-box">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>กำลังโหลดตารางสนาม...</p>
             </div>
+        </div>
+
     </main>
 
-    <nav class="bottom-nav">
-        <a href="booking.html" class="nav-item">
-            <i class="fas fa-home"></i>
-            <span>Main</span>
-        </a>
-        <a href="schedule.html" class="nav-item active"> 
-            <i class="fas fa-calendar-alt"></i>
-            <span>Schedule</span>
-        </a>
-        <a href="history.html" class="nav-item">
-            <i class="fas fa-history"></i>
-            <span>History</span>
-        </a>
-        <a href="index.html" class="nav-item logout">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Logout</span>
-        </a>
-    </nav>
+<nav class="bottom-nav">
+    <a href="booking.html" class="nav-item">
+        <i class="fas fa-futbol"></i>
+        <span>จองสนาม</span>
+    </a>
+    <a href="schedule.html" class="nav-item active"> <!-- ใส่ active ตรงนี้ -->
+        <i class="fas fa-calendar-alt"></i>
+        <span>ตารางสนาม</span>
+    </a>
+    <a href="history.html" class="nav-item">
+        <i class="fas fa-history"></i>
+        <span>ประวัติการจอง</span>
+    </a>
+    <a href="info.html" class="nav-item">
+        <i class="fas fa-info-circle"></i>
+        <span>ติดต่อเรา</span>
+    </a>
+    <a href="index.html" class="nav-item logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>ออกระบบ</span>
+    </a>
+</nav>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
     <script src="schedule.js"></script>
 </body>
+
 </html>

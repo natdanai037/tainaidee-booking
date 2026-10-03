@@ -1,108 +1,209 @@
 // --- ไฟล์ schedule.js ---
 
-// ข้อมูลสนาม (🚨 สำคัญ: เช็คค่า id ตรงนี้ ให้ตรงกับ field_id ที่บันทึกใน Database ด้วยนะครับ เช่น "2" หรือ "F02")
+// ข้อมูลสนาม
 const allFields = [
-    { id: "1", name: "Football Pitch 1" }, 
-    { id: "2", name: "Football Pitch 2 (VIP)" },
-    { id: "3", name: "Football Pitch 3" },
-    { id: "4", name: "Football Pitch 4" }
+    { id: "1", name: "Football Pitch 1", price: "1,200" },
+    { id: "2", name: "Football Pitch 2 (VIP)", price: "1,500" },
+    { id: "3", name: "Football Pitch 3", price: "1,200" },
+    { id: "4", name: "Football Pitch 4", price: "1,200" }
 ];
 
-// แก้ไขเวลาใหม่เป็นรอบละ 2 ชั่วโมงตามต้องการ
+// รอบเวลา (รอบละ 2 ชั่วโมง)
 const allTimeSlots = ["17:00-19:00", "18:00-20:00", "19:00-21:00", "20:00-22:00"];
 
 window.onload = function() {
     const dateInput = document.getElementById('scheduleDate');
+    
+    // ตั้งค่าเป็นวันปัจจุบัน (เวลาไทย)
     const today = new Date();
-    // ปรับโซนเวลาให้เป็นเวลาไทย เพื่อให้วันที่ไม่คลาดเคลื่อน
-    const localDate = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString().split('T')[0];
+    const localDate = getLocalDateString(today);
     dateInput.value = localDate;
 
+    // โหลดตารางสนามครั้งแรก
     fetchAndRenderSchedule(dateInput.value);
 
+    // Event Listener เมื่อเปลี่ยนวันที่
     dateInput.addEventListener('change', (e) => {
+        updateQuickDateActiveBtn(e.target.value);
         fetchAndRenderSchedule(e.target.value);
     });
 };
 
+// 1. ดึงข้อมูลการจองจาก Supabase
 async function fetchAndRenderSchedule(dateStr) {
     const container = document.getElementById('scheduleContainer');
-    container.innerHTML = '<p style="text-align:center;">กำลังโหลดตารางสนาม...</p>';
+    const statsSummary = document.getElementById('scheduleStatsSummary');
+    
+    container.innerHTML = `
+        <div class="loading-box">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>กำลังโหลดตารางสนาม...</p>
+        </div>
+    `;
 
     try {
+        // ดึงรายการจองของวันที่เลือก (ทั้ง Approved และ Pending)
         const { data: bookings, error } = await supabaseDB
             .from('bookings')
-            .select('field_id, booking_time')
+            .select('field_id, booking_time, status')
             .eq('booking_date', dateStr)
-            .in('status', ['Approved', 'Pending']); 
+            .in('status', ['Approved', 'Pending']);
 
         if (error) throw error;
 
-        const bookedSlots = {};
+        // จัดโครงสร้างข้อมูล: { "1": { "17:00-19:00": "Approved" }, ... }
+        const bookedSlotsMap = {};
         allFields.forEach(field => {
-            bookedSlots[field.id] = [];
+            bookedSlotsMap[field.id] = {};
         });
 
         bookings.forEach(b => {
-            // ลบช่องว่างออกเพื่อให้เวลาเช็คข้อความตรงกันเป๊ะๆ
             const timeClean = b.booking_time.replace(/\s+/g, '');
-            if (bookedSlots[b.field_id]) {
-                bookedSlots[b.field_id].push(timeClean);
+            if (bookedSlotsMap[b.field_id]) {
+                bookedSlotsMap[b.field_id][timeClean] = b.status || 'Pending';
             }
         });
 
-        renderSchedule(bookedSlots);
+        renderSchedule(bookedSlotsMap, dateStr);
 
     } catch (err) {
         console.error("Fetch Schedule Error:", err);
-        container.innerHTML = '<p style="text-align:center; color:red;">เกิดข้อผิดพลาดในการดึงข้อมูล</p>';
+        container.innerHTML = `
+            <div class="error-box">
+                <i class="fas fa-exclamation-circle"></i>
+                <p>เกิดข้อผิดพลาดในการโหลดข้อมูลสนาม</p>
+                <button onclick="fetchAndRenderSchedule('${dateStr}')" class="btn-retry">ลองอีกครั้ง</button>
+            </div>
+        `;
+        statsSummary.innerHTML = '';
     }
 }
 
-function renderSchedule(bookedSlots) {
+// 2. แสดงผลตารางสนามและการ์ดเวลา
+function renderSchedule(bookedSlotsMap, dateStr) {
     const container = document.getElementById('scheduleContainer');
-    container.innerHTML = ''; 
+    const statsSummary = document.getElementById('scheduleStatsSummary');
+    container.innerHTML = '';
+
+    let totalAvailable = 0;
+    let totalBooked = 0;
 
     allFields.forEach(field => {
         const cardDiv = document.createElement('div');
         cardDiv.className = 'schedule-card';
-        cardDiv.style.cssText = "background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);";
-        
-        const title = document.createElement('h3');
-        title.style.cssText = "margin-top: 0; margin-bottom: 15px; color: #1a4d2e; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px;";
-        title.innerHTML = `<i class="fas fa-futbol"></i> ${field.name}`;
-        cardDiv.appendChild(title);
 
+        // ส่วนหัวของการ์ดสนาม
+        const cardHeader = document.createElement('div');
+        cardHeader.className = 'schedule-card-header';
+        cardHeader.innerHTML = `
+            <h3><i class="fas fa-futbol"></i> ${field.name}</h3>
+            <span class="field-price-tag">฿${field.price}/รอบ</span>
+        `;
+        cardDiv.appendChild(cardHeader);
+
+        // Grid ช่วงเวลา
         const slotsDiv = document.createElement('div');
-        slotsDiv.className = 'time-slots';
-        slotsDiv.style.cssText = "display: grid; grid-template-columns: 1fr 1fr; gap: 10px;";
+        slotsDiv.className = 'time-slots-grid';
 
         allTimeSlots.forEach(time => {
-            const timeSpan = document.createElement('span');
             const timeClean = time.replace(/\s+/g, '');
-            
-            // เช็คว่าเวลานี้ถูกจองไปแล้วหรือยัง
-            const isBooked = bookedSlots[field.id].includes(timeClean);
-            
-            timeSpan.style.cssText = "padding: 8px 10px; border-radius: 20px; font-size: 0.9rem; font-weight: bold; text-align: center; box-sizing: border-box; width: 100%;";
+            const slotStatus = bookedSlotsMap[field.id][timeClean]; // undefined | 'Approved' | 'Pending'
 
-            if (isBooked) {
-                timeSpan.className = 'time-pill booked';
-                timeSpan.style.background = '#dc3545'; // สีแดง
-                timeSpan.style.color = 'white';
-                timeSpan.innerText = time + " (เต็ม)";
-            } else {
-                timeSpan.className = 'time-pill available';
-                timeSpan.style.background = '#e8f5e9'; // สีเขียว
-                timeSpan.style.color = '#28a745';
-                timeSpan.style.border = '1px solid #28a745';
-                timeSpan.innerText = time + " (ว่าง)";
-            }
+            const slotBtn = document.createElement('div');
             
-            slotsDiv.appendChild(timeSpan);
+            if (slotStatus === 'Approved') {
+                totalBooked++;
+                slotBtn.className = 'time-pill booked';
+                slotBtn.innerHTML = `<span>${time}</span> <small>(จองแล้ว)</small>`;
+            } else if (slotStatus === 'Pending') {
+                totalBooked++;
+                slotBtn.className = 'time-pill pending';
+                slotBtn.innerHTML = `<span>${time}</span> <small>(รอตรวจสอบ)</small>`;
+            } else {
+                totalAvailable++;
+                slotBtn.className = 'time-pill available';
+                slotBtn.innerHTML = `<span>${time}</span> <small>(ว่าง - คลิกจอง)</small>`;
+                
+                // คลิกช่วงเวลาว่างเพื่อไปยังหน้าจองทันที
+                slotBtn.onclick = () => {
+                    quickBookShortcut(field.id, field.name, time, dateStr);
+                };
+            }
+
+            slotsDiv.appendChild(slotBtn);
         });
 
         cardDiv.appendChild(slotsDiv);
         container.appendChild(cardDiv);
     });
+
+    // แสดงสรุปจำนวนสล็อตว่าง/จองแล้ว
+    statsSummary.innerHTML = `
+        <div class="summary-text">
+            <span>ตารางประจำวันที่: <strong>${formatThaiDate(dateStr)}</strong></span>
+            <div class="summary-badges">
+                <span class="badge-count green"><i class="fas fa-check-circle"></i> ว่าง ${totalAvailable} รอบ</span>
+                <span class="badge-count red"><i class="fas fa-times-circle"></i> ไม่ว่าง ${totalBooked} รอบ</span>
+            </div>
+        </div>
+    `;
+}
+
+// 3. ฟังก์ชันคลิกทางลัดไปหน้าจองสนาม
+function quickBookShortcut(fieldId, fieldName, timeSlot, dateStr) {
+    const bookingPrefill = {
+        fieldId: fieldId,
+        fieldName: fieldName,
+        bookingTime: timeSlot,
+        bookingDate: dateStr
+    };
+
+    // บันทึกลง SessionStorage เพื่อส่งต่อข้อมูลไปยังหน้า booking.html
+    sessionStorage.setItem('prefillBooking', JSON.stringify(bookingPrefill));
+    
+    // ย้ายไปหน้าจองสนาม
+    window.location.href = 'booking.html';
+}
+
+// 4. ปุ่มเลือกวันที่เร่งด่วน (วันนี้ / พรุ่งนี้ / มะรืนนี้)
+function setQuickDate(offsetDays) {
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + offsetDays);
+    
+    const dateStr = getLocalDateString(targetDate);
+    const dateInput = document.getElementById('scheduleDate');
+    dateInput.value = dateStr;
+
+    updateQuickDateActiveBtn(dateStr);
+    fetchAndRenderSchedule(dateStr);
+}
+
+// 5. อัปเดตการแสดงผลปุ่ม Active ของทางลัดวัน
+function updateQuickDateActiveBtn(selectedDateStr) {
+    const todayStr = getLocalDateString(new Date());
+    
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tomorrowStr = getLocalDateString(tomorrow);
+
+    const dayAfter = new Date();
+    dayAfter.setDate(dayAfter.getDate() + 2);
+    const dayAfterStr = getLocalDateString(dayAfter);
+
+    document.getElementById('btnToday').classList.toggle('active', selectedDateStr === todayStr);
+    document.getElementById('btnTomorrow').classList.toggle('active', selectedDateStr === tomorrowStr);
+    document.getElementById('btnDayAfter').classList.toggle('active', selectedDateStr === dayAfterStr);
+}
+
+// Utility: แปลง Date Object เป็น YYYY-MM-DD เวลาไทย
+function getLocalDateString(dateObj) {
+    const local = new Date(dateObj.getTime() - (dateObj.getTimezoneOffset() * 60000));
+    return local.toISOString().split('T')[0];
+}
+
+// Utility: จัดฟอร์แมตวันที่ไทย
+function formatThaiDate(dateStr) {
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return dateStr;
+    return d.toLocaleDateString('th-TH', { day: 'numeric', month: 'long', year: 'numeric' });
 }

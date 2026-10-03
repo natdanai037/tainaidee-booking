@@ -4,55 +4,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - TaeNaiDee</title>
+    <title>Admin Dashboard - TaeNaiDee Football Club</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body class="admin-body">
 
+    <!-- Top Bar -->
     <header class="admin-top-bar">
-        <h2><i class="fas fa-user-shield"></i> ผู้ดูแลระบบ</h2>
-        <a href="index.html" class="btn-logout-link"><i class="fas fa-sign-out-alt"></i></a>
+        <div class="admin-brand">
+            <i class="fas fa-user-shield"></i>
+            <div>
+                <h2>ระบบผู้ดูแลสนาม</h2>
+                <p>TaeNaiDee Football Club</p>
+            </div>
+        </div>
+        <a href="index.html" class="btn-logout-link" title="ออกจากระบบ">
+            <i class="fas fa-sign-out-alt"></i> <span>ออกจากระบบ</span>
+        </a>
     </header>
 
-    <main class="container" style="padding-top: 20px;">
-        <h2 style="color: #1a4d2e; margin-bottom: 20px; font-size: 1.5rem;">รายการรอตรวจสอบ</h2>
-
-        <div id="adminPendingList">
-            <p style="text-align:center;">กำลังโหลดข้อมูล...</p>
+    <main class="container admin-container">
+        
+        <!-- Quick Stats Cards -->
+        <div class="admin-stats-grid">
+            <div class="stat-card yellow">
+                <div class="stat-icon"><i class="fas fa-hourglass-half"></i></div>
+                <div class="stat-info">
+                    <span class="stat-label">รอตรวจสอบ</span>
+                    <h3 id="statPendingCount">0</h3>
+                </div>
+            </div>
+            <div class="stat-card green">
+                <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="stat-info">
+                    <span class="stat-label">อนุมัติแล้ว</span>
+                    <h3 id="statApprovedCount">0</h3>
+                </div>
+            </div>
+            <div class="stat-card red">
+                <div class="stat-icon"><i class="fas fa-times-circle"></i></div>
+                <div class="stat-info">
+                    <span class="stat-label">ไม่อนุมัติ</span>
+                    <h3 id="statRejectedCount">0</h3>
+                </div>
+            </div>
         </div>
+
+        <!-- Filter & Search Bar -->
+        <div class="admin-filter-bar">
+            <div class="status-filter-tabs">
+                <button class="filter-btn active" data-status="Pending">
+                    <i class="fas fa-clock"></i> รอตรวจสอบ
+                </button>
+                <button class="filter-btn" data-status="Approved">
+                    <i class="fas fa-check"></i> อนุมัติแล้ว
+                </button>
+                <button class="filter-btn" data-status="Rejected">
+                    <i class="fas fa-times"></i> ไม่อนุมัติ
+                </button>
+                <button class="filter-btn" data-status="all">
+                    <i class="fas fa-list"></i> ทั้งหมด
+                </button>
+            </div>
+            <button class="btn-refresh" onclick="fetchAdminBookings()" title="รีเฟรชข้อมูล">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+        </div>
+
+        <!-- Section Title -->
+        <div class="section-header">
+            <h3 id="listTitle"><i class="fas fa-clipboard-list"></i> รายการรอตรวจสอบ</h3>
+        </div>
+
+        <!-- Booking List Container -->
+        <div id="adminPendingList" class="admin-list-container">
+            <p class="loading-text"><i class="fas fa-spinner fa-spin"></i> กำลังโหลดข้อมูล...</p>
+        </div>
+
     </main>
 
-    <div id="slipModal" class="admin-modal"
-        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
+    <!-- Modal ตรวจสอบสลิปโอนเงิน -->
+    <div id="slipModal" class="admin-modal" style="display: none;">
+        <div class="admin-modal-content">
+            <span onclick="closeModal()" class="modal-close-btn">&times;</span>
 
-        <div class="admin-modal-content"
-            style="background: #fff; padding: 25px; border-radius: 20px; width: 90%; max-width: 400px; position: relative; text-align: center;">
+            <h3 class="modal-title"><i class="fas fa-receipt"></i> ตรวจสอบสลิปโอนเงิน</h3>
 
-            <span onclick="closeModal()"
-                style="position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #888;">&times;</span>
-
-            <h3 style="color: #1a4d2e; margin-bottom: 15px; font-size: 1.2rem;">ตรวจสอบสลิปโอนเงิน</h3>
-
-            <div id="modalSummaryInfo"
-                style="margin-bottom: 15px; background: #f8f9fa; padding: 10px; border-radius: 8px; font-size: 0.95rem;">
+            <div id="modalSummaryInfo" class="modal-summary-box">
+                <!-- รายละเอียดการจองจะมาแสดงตรงนี้ -->
             </div>
 
-            <div style="margin-bottom: 20px;">
-                <img id="slipImagePreview" src="" alt="Slip Preview"
-                    style="max-width: 100%; max-height: 50vh; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <div class="slip-preview-container">
+                <img id="slipImagePreview" src="" alt="สลิปการโอนเงิน">
             </div>
 
-            <div style="display: flex; gap: 10px;">
+            <div class="modal-action-buttons" id="modalActionGroup">
                 <button class="admin-card-btn btn-approve" id="modalApproveBtn">
-                    <i class="fas fa-check"></i> อนุมัติ
+                    <i class="fas fa-check"></i> อนุมัติการจอง
                 </button>
                 <button class="admin-card-btn btn-reject" id="modalRejectBtn">
-                    <i class="fas fa-times"></i> ปฏิเสธ
+                    <i class="fas fa-times"></i> ปฏิเสธการจอง
                 </button>
             </div>
-
         </div>
     </div>
 

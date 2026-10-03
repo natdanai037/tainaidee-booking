@@ -3,51 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Details - TaeNaiDee</title>
+    <title>ระบุรายละเอียดการจอง - TaeNaiDee football club</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="booking-details-body">
 
-    <header class="main-header">
-        <h2>Booking Details</h2>
+    <!-- Header ด้านบน -->
+    <header class="main-header header-with-back">
+        <a href="booking.html" class="btn-back"><i class="fas fa-chevron-left"></i></a>
+        <div>
+            <h2>รายละเอียดการจอง</h2>
+            <p class="header-subtitle">TaeNaiDee Football Club</p>
+        </div>
     </header>
 
     <main class="container">
-        <form id="detailsForm" class="details-form">
-            
-            <div class="form-group">
-                <label class="form-label">FIELD</label>
-                <select id="fieldSelect" class="form-input" required>
-                    <option value="1">Football Pitch 1</option>
-                    <option value="2">Football Pitch 2 (VIP)</option>
-                    <option value="3">Football Pitch 3</option>
-                    <option value="4">Football Pitch 4</option>
-                </select>
+        <!-- Step Indicator -->
+        <div class="booking-step-bar">
+            <div class="step-item active">
+                <span class="step-num">1</span>
+                <span class="step-label">เลือกรอบสนาม</span>
+            </div>
+            <div class="step-line"></div>
+            <div class="step-item">
+                <span class="step-num">2</span>
+                <span class="step-label">ชำระเงิน</span>
+            </div>
+        </div>
+
+        <!-- Form Card -->
+        <div class="details-card">
+            <div class="card-title-group">
+                <i class="fas fa-calendar-check title-icon"></i>
+                <h3>กรอกข้อมูลการจอง</h3>
             </div>
 
-            <div class="form-group">
-                <label class="form-label">DATE</label>
-                <input type="date" id="dateInput" class="form-input" required>
-            </div>
+            <form id="detailsForm" class="details-form">
+                
+                <!-- เลือกสนาม -->
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-futbol"></i> สนามที่ต้องการจอง (FIELD)</label>
+                    <div class="input-with-icon">
+                        <select id="fieldSelect" class="form-input custom-select" required>
+                            <option value="1">Football Pitch 1 (Standard - ฿800/2ชม.)</option>
+                            <option value="2">Football Pitch 2 (VIP Indoor - ฿1,200/2ชม.)</option>
+                            <option value="3">Football Pitch 3 (Full Stadium - ฿1,500/2ชม.)</option>
+                            <option value="4">Football Pitch 4 (Standard - ฿800/2ชม.)</option>
+                        </select>
+                        <i class="fas fa-chevron-down select-arrow"></i>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label class="form-label">TIME</label>
-                <select id="timeSelect" class="form-input" required>
-                    <option value="">Select Time Slot</option>
-                    <option value="17:00-19:00">17:00 - 19:00</option>
-                    <option value="18:00-20:00">18:00 - 20:00</option>
-                    <option value="19:00-21:00">19:00 - 21:00</option>
-                    <option value="20:00-22:00">20:00 - 22:00</option>
-                </select>
-            </div>
+                <!-- วันที่จอง -->
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-calendar-alt"></i> วันที่เข้าใช้บริการ (DATE)</label>
+                    <input type="date" id="dateInput" class="form-input" required>
+                </div>
 
-            <button type="submit" class="btn-action">Continue</button>
-        </form>
+                <!-- ช่วงเวลา -->
+                <div class="form-group">
+                    <label class="form-label"><i class="fas fa-clock"></i> ช่วงเวลาจอง (TIME SLOT)</label>
+                    <div class="input-with-icon">
+                        <select id="timeSelect" class="form-input custom-select" required>
+                            <option value="">-- กรุณาเลือกช่วงเวลา --</option>
+                            <option value="16:00-18:00">16:00 - 18:00 น.</option>
+                            <option value="17:00-19:00">17:00 - 19:00 น.</option>
+                            <option value="18:00-20:00">18:00 - 20:00 น.</option>
+                            <option value="19:00-21:00">19:00 - 21:00 น.</option>
+                            <option value="20:00-22:00">20:00 - 22:00 น.</option>
+                            <option value="21:00-23:00">21:00 - 23:00 น.</option>
+                        </select>
+                        <i class="fas fa-chevron-down select-arrow"></i>
+                    </div>
+                </div>
+
+                <!-- Price Preview Box -->
+                <div class="price-preview-card">
+                    <div class="price-preview-label">
+                        <i class="fas fa-tag"></i> ราคาประเมินรวม
+                    </div>
+                    <div class="price-preview-value">
+                        <span id="displayPrice">฿800</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-action btn-submit-booking">
+                    ดำเนินการชำระเงิน <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+        </div>
     </main>
 
+    <!-- Bottom Nav -->
     <nav class="bottom-nav">
-        <a href="booking.html" class="nav-item">
+        <a href="booking.html" class="nav-item active">
             <i class="fas fa-home"></i>
             <span>Main</span>
         </a>
@@ -55,7 +105,7 @@
             <i class="fas fa-calendar-alt"></i>
             <span>Schedule</span>
         </a>
-        <a href="history.html" class="nav-item "> 
+        <a href="history.html" class="nav-item"> 
             <i class="fas fa-history"></i>
             <span>History</span>
         </a>
