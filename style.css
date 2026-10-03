@@ -6,24 +6,12 @@ body{background:#f0f2f5;min-height:100vh}
 .container{width:100%;max-width:500px;margin:auto;padding:20px}
 @media(min-width:768px){.container{max-width:700px}}
 @media(min-width:1024px){.container{max-width:900px}}
-
-/* ===== LOGIN ===== */
-.login-container{
-    background:#fff;padding:30px;border-radius:20px;
-    box-shadow:0 10px 25px rgba(0,0,0,.1);
-    width:90%;max-width:380px;margin:auto;text-align:center
-}
-.logo-text{font-size:2.5rem;color:#1a4d2e;margin-bottom:20px;font-weight:bold}
 .input-group{margin-bottom:20px}
 input{
     width:100%;padding:14px;border:1px solid #ddd;border-radius:30px;
     text-align:center;background:#fafafa;outline:none
 }
 input:focus{border-color:#1a4d2e}
-.btn-login{
-    width:100%;padding:14px;border:2px solid #000;border-radius:10px;
-    background:#fff;font-weight:bold;cursor:pointer;transition:.3s
-}
 .btn-login:hover{background:#000;color:#fff}
 .register-link{margin-top:15px;font-size:.9rem}
 .register-link a{color:#007bff;text-decoration:none;font-weight:bold}
@@ -37,10 +25,7 @@ input:focus{border-color:#1a4d2e}
     background: linear-gradient(rgba(10, 35, 18, 0.7), rgba(10, 35, 18, 0.8)), 
                 url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1920&auto=format&fit=crop') no-repeat center center/cover;
     padding: 20px;
-}
-
-/* ปรับแต่งกล่อง Login ให้ดูพรีเมียม สไตล์ Glassmorphism */
-.login-container {
+}.login-container {
     background: rgba(255, 255, 255, 0.93);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -52,10 +37,8 @@ input:focus{border-color:#1a4d2e}
     margin: auto;
     text-align: center;
     border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-.logo-text {
-    font-size: 1.8rem; /* ปรับขนาดตัวอักษรให้พอดีกับคำว่า TaeNaiDee football club */
+}.logo-text {
+    font-size: 1.8rem;
     color: #1a4d2e;
     margin-bottom: 0;
     font-weight: 800;
@@ -71,13 +54,6 @@ input:focus{border-color:#1a4d2e}
     letter-spacing: 0.5px;
 }
 
-/* ===== HEADER ===== */
-.main-header{
-    background:linear-gradient(135deg,#1a4d2e,#2e7d32);
-    color:#fff;padding:18px;text-align:center;
-    border-radius:0 0 20px 20px;font-weight:bold
-}
-
 /* ===== BODY PAGES ===== */
 .booking-body,.payment-body,.history-body,.schedule-body{
     background:#f8f9fa;display:block;padding-bottom:90px
@@ -89,98 +65,18 @@ input:focus{border-color:#1a4d2e}
     overflow:hidden;height:180px
 }
 .field-banner img{width:100%;height:100%;object-fit:cover}
-
-/* ===== PITCH ===== */
-.pitch-list{padding:0 20px}
-.pitch-card{
-    background:#fff;margin-bottom:15px;padding:15px;
-    border-radius:15px;display:flex;justify-content:space-between;
-    align-items:center;box-shadow:0 4px 10px rgba(0,0,0,.05)
-}
 .pitch-info h3{font-size:1.1rem}
-.status.available{color:#28a745;font-size:.8rem;font-weight:bold}
 
 /* ===== BUTTON ===== */
 .btn-select{
     background:#1a4d2e;color:#fff;border:none;
     padding:8px 15px;border-radius:20px;cursor:pointer
 }
-.btn-booking-blue{
-    background:linear-gradient(135deg,#59c93e,#32680d);
-    color:#fff;border:none;padding:10px 15px;border-radius:20px;
-    font-size:.85rem;font-weight:bold;cursor:pointer;transition:.3s
-}
-.btn-booking-blue:hover{transform:translateY(-2px)}
 
 /* ===== FORM ===== */
 .form-group{margin-bottom:20px}
-.form-label{font-size:.9rem;color:#1a4d2e;font-weight:bold;margin-bottom:5px;display:block}
 .form-input{
     width:100%;padding:14px;border:1px solid #ddd;border-radius:30px
-}
-
-/* ===== PAYMENT (สไตล์ตั๋ว/ใบเสร็จ) ===== */
-.booking-summary-ticket {
-    background: #fff;
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 8px 20px rgba(0,0,0,.08);
-    margin-bottom: 25px;
-    border-top: 5px solid #1a4d2e;
-    /* เอา position: relative และ ::after ออกไป เพราะเราจะใช้เส้นประแบบยืดหยุ่นแทน */
-}
-
-.field-info-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #1a4d2e;
-    margin-bottom: 20px;
-}
-
-.ticket-details {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px; /* ปรับลดลงนิดหน่อยให้ช่องไฟสมดุลกับเลขบัญชี */
-}
-
-.detail-item {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-}
-
-.detail-item i {
-    color: #1a4d2e;
-    margin-top: 3px;
-}
-
-.detail-item label {
-    display: block;
-    font-size: 0.8rem;
-    color: #888;
-    margin-bottom: 2px;
-}
-
-.detail-item span {
-    font-weight: bold;
-    color: #333;
-    font-size: 0.95rem;
-}
-
-.ticket-footer-price {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 15px;
-    border-top: 2px dashed #eee; /* 🔥 ย้ายรอยปะตั๋วมาไว้ตรงนี้แทน ยืดหยุ่น 100% */
-}
-
-.ticket-footer-price label {
-    font-weight: bold;
-    color: #555;
 }
 
 #payPrice {
@@ -200,19 +96,9 @@ input:focus{border-color:#1a4d2e}
     background:#fff;border-radius:15px;padding:25px;text-align:center;
     box-shadow:0 8px 20px rgba(0,0,0,.08);margin-bottom:25px
 }
-.upload-title{color:#1a4d2e;font-size:1.1rem;margin-bottom:15px;font-weight:bold}
-.upload-box{
-    background:#f8fcf9;border:2px dashed #a5d6a7;border-radius:15px;
-    padding:40px 20px;cursor:pointer;transition:.3s
-}
-.upload-box:hover{border-color:#28a745;background:#e8f5e9}
 .upload-box i{font-size:2.8rem;color:#a5d6a7;margin-bottom:10px}
 .upload-box p{margin:0;font-weight:bold;color:#333}
 .upload-box small{color:#888;font-size:.8rem}
-#slipPreview{
-    max-width:100%;margin-top:15px;border-radius:10px;
-    box-shadow:0 4px 10px rgba(0,0,0,.1);display:none;
-}
 #fileNameDisplay{margin-top:10px;font-size:.85rem;color:#666}
 
 /* ===== CONFIRM BUTTON ===== */
@@ -229,12 +115,7 @@ input:focus{border-color:#1a4d2e}
 
 /* ===== HISTORY ===== */
 .history-header{padding:30px 20px;color:#fff}
-.history-header h1{font-size:2rem}
 .history-header h2{font-size:1rem;opacity:.8}
-.history-card{
-    background:#fff;border-radius:15px;padding:20px;
-    margin:15px;box-shadow:0 4px 10px rgba(0,0,0,.05)
-}
 .card-header{
     display:flex;justify-content:space-between;
     border-bottom:1px solid #eee;margin-bottom:10px
@@ -245,159 +126,20 @@ input:focus{border-color:#1a4d2e}
 .status-approved{background:#d4edda;color:#155724}
 .status-pending{background:#fff3cd;color:#856404}
 .status-rejected{background:#f8d7da;color:#721c24}
-
-/* ===== SCHEDULE ===== */
-.schedule-card{
-    background:#fff;
-    border-radius:15px;
-    padding:20px;
-    margin:10px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.05);
-}
 .time-slots{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:10px
 }
-.time-pill{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:6px; /* ระยะห่างระหว่างเวลา กับ (ว่าง) */
-    padding:10px;
-    border-radius:8px;
-    font-size:0.85rem;
-    font-weight:bold;
-    white-space:nowrap; /* กันตัดบรรทัด */
-}
-.time-pill.available{
-    background:#e9f5ed;color:#1a4d2e;border:1px solid #1a4d2e
-}
-.time-pill.booked{
-    background:#f1f1f1;color:#999;border:1px solid #ddd;
-    text-decoration:line-through
-}
-
-/* ===== ADMIN (สไตล์พรีเมียมแบบหน้า Payment) ===== */
-.admin-body {
-    background: #f8f9fa; /* สีพื้นสว่างสบายตา */
-    min-height: 100vh;
-    padding-bottom: 50px;
-}
-
-/* แถบเมนูด้านบน */
-.admin-top-bar {
-    background: linear-gradient(135deg, #1a4d2e, #2e7d32); /* สีเขียวสโมสร */
-    color: #fff;
-    padding: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    border-radius: 0 0 20px 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
 .admin-top-bar h2 { margin: 0; font-size: 1.3rem; }
 .admin-top-bar a { color: #fff; text-decoration: none; font-size: 1.2rem; transition: 0.3s; }
 .admin-top-bar a:hover { opacity: 0.8; }
-
-/* การ์ดรายการคำขอจอง */
-.admin-request-card {
-    background: #fff;
-    border-radius: 15px;
-    padding: 15px;
-    margin: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-    border-top: 5px solid #f39c12; /* แถบสีเหลืองบอกสถานะ รอตรวจสอบ */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
 .admin-request-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 12px 25px rgba(0,0,0,0.1);
 }
-
-/* ส่วนหัวของการ์ด Admin */
-.admin-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 2px dashed #eee; /* เส้นประแบบตั๋ว */
-    padding-bottom: 12px;
-    margin-bottom: 15px;
-}
 .admin-card-header h3 { margin: 0; font-size: 1.1rem; color: #1a4d2e; }
 .admin-card-price { font-size: 1.2rem; font-weight: bold; color: #e53935; }
-
-/* รายละเอียดในคาร์ด */
-.admin-card-details p {
-    margin: 8px 0;
-    font-size: 0.9rem;
-    color: #555;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.admin-card-details i { color: #1a4d2e; width: 18px; text-align: center; }
-
-/* กลุ่มปุ่มกดจัดการ */
-.admin-action-group {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid #f0f0f0;
-}
-.admin-card-btn {
-    flex: 1;
-    padding: 9px;
-    border: none;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-}
-
-/* สีปุ่มแบบต่างๆ */
-.btn-view-slip {
-    background: #e9ecef; color: #333;
-}
-.btn-view-slip:hover { background: #dde2e6; }
-
-.btn-approve {
-    background: linear-gradient(135deg, #28a745, #1b5e20);
-    color: #fff;
-    box-shadow: 0 4px 10px rgba(40,167,69,0.2);
-}
-.btn-approve:hover { 
-    transform: translateY(-2px); 
-    box-shadow: 0 6px 15px rgba(40,167,69,0.4); 
-}
-
-.btn-reject {
-    background: #fff; color: #dc3545; border: 1px solid #dc3545;
-}
-.btn-reject:hover { background: #dc3545; color: #fff; }
-
-/* ===== BOTTOM NAV ===== */
-.bottom-nav{
-    position:fixed;bottom:0;left:0;right:0;
-    display:flex;justify-content:space-around;
-    background:#fff;padding:10px;
-    box-shadow:0 -2px 10px rgba(0,0,0,.1)
-}
-.nav-item{
-    color:#888;text-decoration:none;font-size:.75rem;
-    display:flex;flex-direction:column;align-items:center
-}
-.nav-item i{font-size:1.2rem}
-.nav-item.active{color:#1a4d2e}
 .logout{color:#dc3545}
 
 /* ===== TABLET / DESKTOP LAYOUT ===== */
@@ -411,19 +153,20 @@ input:focus{border-color:#1a4d2e}
 }
 @media(min-width:1024px){
     .pitch-list{max-width:900px;margin:auto}
-}
-/* ===== บังคับสไตล์ปุ่ม Login / Register สำหรับมือถือ (iOS/Android) ===== */
-.btn-login {
-    background-color: #1a4d2e !important; /* สีพื้นหลังปุ่ม (สีเขียวเข้ม) */
-    color: #ffffff !important; /* สีตัวหนังสือ (สีขาว) */
-    border: none !important; /* เอาขอบดำๆ ของมือถือออก */
-    border-radius: 25px; /* ความโค้ง */
+}.btn-login {
+    border: 2px solid #000;
+    background: #fff;
+    transition: .3s;
+    background-color: #1a4d2e !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 25px;
     padding: 12px 20px;
     width: 100%;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    -webkit-appearance: none; /* 🔥 คำสั่งสำคัญ: ปิดสไตล์ปุ่มพื้นฐานของ iPhone */
+    -webkit-appearance: none;
     appearance: none;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     margin-top: 10px;
@@ -447,12 +190,8 @@ input:focus{border-color:#1a4d2e}
 .input-group input::placeholder {
     color: #888888 !important; 
     opacity: 1 !important;
-}
-
-/* ===== MAIN PAGE ENHANCEMENTS (TaeNaiDee Football Club) ===== */
-
-/* Main Header */
-.main-header {
+}.main-header {
+    font-weight: bold;
     background: linear-gradient(135deg, #0f381e, #1a4d2e, #2e7d32);
     color: #fff;
     padding: 20px 15px;
@@ -476,12 +215,6 @@ input:focus{border-color:#1a4d2e}
     font-weight: 800;
     margin: 0;
     letter-spacing: 0.5px;
-}
-.header-subtitle {
-    font-size: 0.75rem;
-    color: #a5d6a7;
-    margin-top: 2px;
-    font-weight: 400;
 }
 
 /* Hero Banner */
@@ -535,11 +268,6 @@ input:focus{border-color:#1a4d2e}
     margin-bottom: 15px;
     padding: 0 5px;
 }
-.section-header h3 {
-    font-size: 1.05rem;
-    color: #1a4d2e;
-    font-weight: 700;
-}
 .section-header h3 i {
     color: #2e7d32;
     margin-right: 6px;
@@ -551,16 +279,16 @@ input:focus{border-color:#1a4d2e}
     padding: 4px 10px;
     border-radius: 12px;
     font-weight: 600;
-}
-
-/* Pitch Cards Upgrade */
-.pitch-list {
+}.pitch-list {
     padding: 0;
     display: flex;
     flex-direction: column;
     gap: 20px;
-}
-.pitch-card {
+}.pitch-card {
+    margin-bottom: 15px;
+    padding: 15px;
+    justify-content: space-between;
+    align-items: center;
     background: #fff;
     border-radius: 20px;
     overflow: hidden;
@@ -627,8 +355,7 @@ input:focus{border-color:#1a4d2e}
     color: #1a4d2e;
     font-weight: 700;
     margin: 0;
-}
-.status.available {
+}.status.available {
     color: #2e7d32;
     background: #e8f5e9;
     padding: 4px 10px;
@@ -687,8 +414,7 @@ input:focus{border-color:#1a4d2e}
 .pitch-price small {
     color: #888;
     font-size: 0.8rem;
-}
-.btn-booking-blue {
+}.btn-booking-blue {
     background: linear-gradient(135deg, #1a4d2e, #2e7d32);
     color: #fff;
     border: none;
@@ -699,8 +425,7 @@ input:focus{border-color:#1a4d2e}
     cursor: pointer;
     transition: all 0.3s ease;
     box-shadow: 0 4px 10px rgba(26, 77, 46, 0.25);
-}
-.btn-booking-blue:hover {
+}.btn-booking-blue:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(26, 77, 46, 0.4);
     background: linear-gradient(135deg, #2e7d32, #1a4d2e);
@@ -903,10 +628,8 @@ input:focus{border-color:#1a4d2e}
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
     border: 1px solid #eaeaea;
     margin-bottom: 20px;
-}
-
-/* Booking Summary Ticket */
-.booking-summary-ticket {
+}.booking-summary-ticket {
+    border-top: 5px solid #1a4d2e;
     background: #ffffff;
     border-radius: 20px;
     padding: 20px;
@@ -926,8 +649,7 @@ input:focus{border-color:#1a4d2e}
     display: flex;
     align-items: center;
     gap: 6px;
-}
-.field-info-header {
+}.field-info-header {
     font-size: 1.25rem;
     font-weight: 800;
     color: #1a4d2e;
@@ -935,30 +657,29 @@ input:focus{border-color:#1a4d2e}
     display: flex;
     align-items: center;
     gap: 10px;
-}
-.ticket-details {
+}.ticket-details {
+    justify-content: space-between;
+    margin-bottom: 20px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
     background: #f9fbf9;
     padding: 14px;
     border-radius: 12px;
-}
-.detail-item {
+}.detail-item {
     display: flex;
     align-items: center;
     gap: 10px;
-}
-.detail-item i {
+}.detail-item i {
+    margin-top: 3px;
     color: #2e7d32;
     font-size: 1.1rem;
-}
-.detail-item label {
+}.detail-item label {
+    margin-bottom: 2px;
     display: block;
     font-size: 0.75rem;
     color: #777;
-}
-.detail-item span {
+}.detail-item span {
     font-size: 0.95rem;
     font-weight: 700;
     color: #222;
@@ -980,15 +701,13 @@ input:focus{border-color:#1a4d2e}
     top: -10px;
 }
 .circle-left { left: -10px; }
-.circle-right { right: -10px; }
-
-.ticket-footer-price {
+.circle-right { right: -10px; }.ticket-footer-price {
+    border-top: 2px dashed #eee;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-top: 4px;
-}
-.ticket-footer-price label {
+}.ticket-footer-price label {
     font-size: 0.95rem;
     font-weight: 700;
     color: #444;
@@ -1076,16 +795,12 @@ input:focus{border-color:#1a4d2e}
 .btn-copy.copied {
     background: #2e7d32;
     color: #fff;
-}
-
-/* Upload Section */
-.upload-title {
+}.upload-title {
     font-size: 0.95rem;
     font-weight: 700;
     color: #1a4d2e;
     margin-bottom: 12px;
-}
-.upload-box {
+}.upload-box {
     border: 2px dashed #a5d6a7;
     background: #fafdfa;
     border-radius: 14px;
@@ -1097,8 +812,7 @@ input:focus{border-color:#1a4d2e}
     display: flex;
     align-items: center;
     justify-content: center;
-}
-.upload-box:hover {
+}.upload-box:hover {
     background: #f1f8e9;
     border-color: #2e7d32;
 }
@@ -1118,8 +832,9 @@ input:focus{border-color:#1a4d2e}
     font-size: 0.75rem;
     margin-top: 4px;
     display: block;
-}
-#slipPreview {
+}#slipPreview {
+    margin-top: 15px;
+    display: none;
     max-width: 100%;
     max-height: 250px;
     border-radius: 10px;
@@ -1167,9 +882,7 @@ input:focus{border-color:#1a4d2e}
     background: #f4f7f5;
     min-height: 100vh;
     padding-bottom: 90px;
-}
-
-.history-header h1 {
+}.history-header h1 {
     margin: 0;
     font-size: 1.5rem;
     font-weight: 800;
@@ -1204,10 +917,8 @@ input:focus{border-color:#1a4d2e}
     color: #fff;
     border-color: #1a4d2e;
     box-shadow: 0 4px 10px rgba(26, 77, 46, 0.25);
-}
-
-/* History Card Design */
-.history-card {
+}.history-card {
+    margin: 15px;
     background: #ffffff;
     border-radius: 16px;
     padding: 18px;
@@ -1311,20 +1022,6 @@ input:focus{border-color:#1a4d2e}
     color: #888;
     font-size: 0.75rem;
 }
-.btn-view-slip {
-    background: #f0f4f1;
-    color: #1a4d2e;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.2s;
-}
-.btn-view-slip:hover {
-    background: #c8e6c9;
-}
 
 /* Empty State */
 .empty-history-card {
@@ -1403,11 +1100,6 @@ input:focus{border-color:#1a4d2e}
     color: #888;
     cursor: pointer;
 }
-.modal-title {
-    margin: 0 0 15px 0;
-    color: #1a4d2e;
-    font-size: 1.1rem;
-}
 .modal-body img {
     width: 100%;
     max-height: 450px;
@@ -1426,27 +1118,16 @@ input:focus{border-color:#1a4d2e}
     font-size: 2rem;
     color: #1a4d2e;
     margin-bottom: 10px;
-}
-.btn-retry {
-    background: #1a4d2e;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 20px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-/* ===== ADMIN DASHBOARD STYLES ===== */
-.admin-body {
+}.admin-body {
     background: #f0f4f1;
     min-height: 100vh;
     padding-bottom: 50px;
-    font-family: 'Prompt', 'Kanit', sans-serif;
-}
-
-/* Admin Top Bar */
-.admin-top-bar {
+    font-family: "Prompt", "Kanit", sans-serif;
+}.admin-top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-radius: 0 0 20px 20px;
     background: #1a4d2e;
     color: #ffffff;
     padding: 15px 20px;
@@ -1553,19 +1234,17 @@ input:focus{border-color:#1a4d2e}
 .btn-refresh:hover {
     background: #e8f5e9;
     transform: rotate(180deg);
-}
-
-.section-header h3 {
+}.section-header h3 {
+    font-weight: 700;
     color: #1a4d2e;
     font-size: 1.1rem;
     margin-bottom: 15px;
     display: flex;
     align-items: center;
     gap: 8px;
-}
-
-/* Admin Request Cards */
-.admin-request-card {
+}.admin-request-card {
+    margin: 15px;
+    border-top: 5px solid #f39c12;
     background: #ffffff;
     border-radius: 16px;
     padding: 18px;
@@ -1576,9 +1255,7 @@ input:focus{border-color:#1a4d2e}
 }
 .admin-request-card.border-pending { border-left-color: #f39c12; }
 .admin-request-card.border-approved { border-left-color: #2e7d32; }
-.admin-request-card.border-rejected { border-left-color: #c62828; }
-
-.admin-card-header {
+.admin-request-card.border-rejected { border-left-color: #c62828; }.admin-card-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -1603,14 +1280,15 @@ input:focus{border-color:#1a4d2e}
     flex-direction: column;
     gap: 6px;
     margin-bottom: 15px;
-}
-.admin-card-details p {
+}.admin-card-details p {
+    font-size: 0.9rem;
+    color: #555;
     margin: 0;
     display: flex;
     align-items: center;
     gap: 8px;
-}
-.admin-card-details i {
+}.admin-card-details i {
+    text-align: center;
     width: 18px;
     color: #1a4d2e;
 }
@@ -1623,15 +1301,14 @@ input:focus{border-color:#1a4d2e}
     font-size: 0.75rem;
     color: #999;
     margin-top: 4px !important;
-}
-
-/* Action Buttons Group */
-.admin-action-group {
+}.admin-action-group {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
-}
-.admin-card-btn {
+}.admin-card-btn {
     flex: 1;
     min-width: 90px;
     padding: 9px 12px;
@@ -1645,15 +1322,34 @@ input:focus{border-color:#1a4d2e}
     justify-content: center;
     gap: 6px;
     transition: 0.2s;
+}.btn-view-slip {
+    border: none;
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+    background: #e3f2fd;
+    color: #1976d2;
+}.btn-view-slip:hover {
+    background: #bbdefb;
+}.btn-approve {
+    box-shadow: 0 4px 10px rgba(40,167,69,0.2);
+    background: #2e7d32;
+    color: #ffffff;
+}.btn-approve:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(40,167,69,0.4);
+    background: #1b5e20;
+}.btn-reject {
+    border: 1px solid #dc3545;
+    background: #c62828;
+    color: #ffffff;
+}.btn-reject:hover {
+    color: #fff;
+    background: #b71c1c;
 }
-.btn-view-slip { background: #e3f2fd; color: #1976d2; }
-.btn-view-slip:hover { background: #bbdefb; }
-
-.btn-approve { background: #2e7d32; color: #ffffff; }
-.btn-approve:hover { background: #1b5e20; }
-
-.btn-reject { background: #c62828; color: #ffffff; }
-.btn-reject:hover { background: #b71c1c; }
 
 .btn-revert { background: #f5f5f5; color: #666; border: 1px solid #ddd; }
 .btn-revert:hover { background: #e0e0e0; }
@@ -1686,8 +1382,7 @@ input:focus{border-color:#1a4d2e}
     font-size: 1.6rem;
     color: #999;
     cursor: pointer;
-}
-.modal-title {
+}.modal-title {
     margin: 0 0 15px 0;
     color: #1a4d2e;
     font-size: 1.15rem;
@@ -1747,9 +1442,8 @@ input:focus{border-color:#1a4d2e}
     max-width: 600px;
     margin: 0 auto;
     padding: 0 15px;
-}
-
-.header-subtitle {
+}.header-subtitle {
+    color: #a5d6a7;
     font-size: 0.85rem;
     opacity: 0.85;
     margin-top: 2px;
@@ -1772,9 +1466,9 @@ input:focus{border-color:#1a4d2e}
     justify-content: space-between;
     gap: 10px;
     margin-bottom: 12px;
-}
-
-.form-label {
+}.form-label {
+    margin-bottom: 5px;
+    display: block;
     font-weight: 600;
     color: #1a4d2e;
     font-size: 0.95rem;
@@ -1880,10 +1574,8 @@ input:focus{border-color:#1a4d2e}
 }
 
 .badge-count.green { background: #2e7d32; color: #fff; }
-.badge-count.red { background: #c62828; color: #fff; }
-
-/* Schedule Pitch Cards */
-.schedule-card {
+.badge-count.red { background: #c62828; color: #fff; }.schedule-card {
+    margin: 10px;
     background: #ffffff;
     border-radius: 16px;
     padding: 18px;
@@ -1923,9 +1615,9 @@ input:focus{border-color:#1a4d2e}
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-}
-
-.time-pill {
+}.time-pill {
+    gap: 6px;
+    white-space: nowrap;
     padding: 10px;
     border-radius: 12px;
     font-size: 0.85rem;
@@ -1943,10 +1635,7 @@ input:focus{border-color:#1a4d2e}
     font-size: 0.72rem;
     margin-top: 2px;
     font-weight: normal;
-}
-
-/* 1. สล็อตว่าง (Available) */
-.time-pill.available {
+}.time-pill.available {
     background: #e8f5e9;
     color: #2e7d32;
     border: 1px solid #a5d6a7;
@@ -1967,10 +1656,8 @@ input:focus{border-color:#1a4d2e}
     border: 1px solid #ffe0b2;
     cursor: not-allowed;
     opacity: 0.9;
-}
-
-/* 3. สล็อตจองแล้ว (Booked) */
-.time-pill.booked {
+}.time-pill.booked {
+    text-decoration: line-through;
     background: #ffebee;
     color: #c62828;
     border: 1px solid #ffcdd2;
@@ -1989,9 +1676,7 @@ input:focus{border-color:#1a4d2e}
     font-size: 2rem;
     color: #1a4d2e;
     margin-bottom: 10px;
-}
-
-.btn-retry {
+}.btn-retry {
     margin-top: 10px;
     padding: 8px 16px;
     background: #1a4d2e;
@@ -2154,10 +1839,8 @@ input:focus{border-color:#1a4d2e}
 
 .btn-map-link:hover {
     background: #2e7d32;
-}
-
-/* ปรับเปลี่ยน Style Bottom Nav รองรับ 5 ไอคอนให้สมดุล */
-.bottom-nav {
+}.bottom-nav {
+    right: 0;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -2169,9 +1852,7 @@ input:focus{border-color:#1a4d2e}
     padding: 8px 0;
     box-shadow: 0 -2px 10px rgba(0,0,0,0.08);
     z-index: 1000;
-}
-
-.nav-item {
+}.nav-item {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2179,14 +1860,10 @@ input:focus{border-color:#1a4d2e}
     color: #888;
     font-size: 0.72rem;
     flex: 1;
-}
-
-.nav-item i {
+}.nav-item i {
     font-size: 1.15rem;
     margin-bottom: 3px;
-}
-
-.nav-item.active {
+}.nav-item.active {
     color: #1a4d2e;
     font-weight: bold;
 }
